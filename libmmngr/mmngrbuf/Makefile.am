@@ -1,0 +1,2 @@
+SUBDIRS = if tp
+ACLOCAL_AMFLAGS = -I m4

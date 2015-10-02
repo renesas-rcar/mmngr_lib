@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2015 Renesas Electronics Corporation
+ * Released under the MIT license
+ * http://opensource.org/licenses/mit-license.php
+ */
+#ifndef	__MMNGR_USER_PUBLIC_H__
+#define __MMNGR_USER_PUBLIC_H__
+
+typedef int MMNGR_ID;
+
+/* Gen3 API */
+int mmngr_alloc_in_user_ext(MMNGR_ID *pid,
+			size_t size,
+			unsigned int *phard_addr,
+			void **puser_virt_addr,
+			unsigned int flag,
+			void *mem_param);
+int mmngr_free_in_user_ext(MMNGR_ID id);
+#define mmngr_debug_map_va_ext(a, b, c, d, e) \
+		mmngr_share_in_user_ext(a, b, c, d, e)
+#define mmngr_debug_unmap_va_ext(a) \
+		mmngr_release_in_user_ext(a)
+int mmngr_share_in_user_ext(MMNGR_ID *pid,
+			size_t size,
+			unsigned int hard_addr,
+			void **puser_virt_addr,
+			void *mem_param);
+int mmngr_release_in_user_ext(MMNGR_ID id);
+
+/* Gen2 Legacy API */
+int mmngr_alloc_in_user(MMNGR_ID *pid,
+			unsigned long size,
+			unsigned long *pphy_addr,
+			unsigned long *phard_addr,
+			unsigned long *puser_virt_addr,
+			unsigned long flag);
+int mmngr_free_in_user(MMNGR_ID id);
+#define mmngr_debug_map_va(a, b, c, d) \
+		mmngr_share_in_user(a, b, c, d)
+#define mmngr_debug_unmap_va(a) \
+		mmngr_release_in_user(a)
+int mmngr_share_in_user(MMNGR_ID *pid,
+			unsigned long size,
+			unsigned long hard_addr,
+			unsigned long *puser_virt_addr);
+int mmngr_release_in_user(MMNGR_ID id);
+
+#define R_MM_OK			0
+#define R_MM_FATAL		-1
+#define R_MM_SEQE		-2
+#define R_MM_PARE		-3
+#define R_MM_NOMEM		-4
+
+#define MMNGR_VA_SUPPORT	MM_KERNELHEAP
+#define MMNGR_PA_SUPPORT	MM_CARVEOUT
+#define MMNGR_PA_SUPPORT_SSP	MM_CARVEOUT_SSP
+#define MM_KERNELHEAP		0
+#define MM_CARVEOUT		1
+#define MM_CARVEOUT_SSP		3
+
+#endif	/* __MMNGR_USER_PUBLIC_H__ */

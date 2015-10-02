@@ -1,0 +1,4 @@
+This repository contains both MMNGR user library and MMNGRBUF (dmabuf support) library.
+It supports both 32-bit and 64-bit mode.
+
+The libraries are released under MIT license.
