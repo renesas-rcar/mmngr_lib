@@ -2,8 +2,6 @@ Please execute following instruction for autotools config:
 
 $ source $YOCTO_TOOLCHAIN
 
-$ touch NEWS README AUTHORS ChangeLog
-
 $ autoreconf -i
 
 $ ./configure ${CONFIGURE_FLAGS} --enable-mmngrbuf-test --prefix=$PWD/tmp
