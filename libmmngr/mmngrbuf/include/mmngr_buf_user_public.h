@@ -11,13 +11,13 @@ int mmngr_export_start_in_user_ext(int *pid,
 			size_t size,
 			unsigned int hard_addr,
 			int *pbuf,
-			void *data);
+			void *mem_param);
 int mmngr_export_end_in_user_ext(int id);
 int mmngr_import_start_in_user_ext(int *pid,
 			size_t *psize,
 			unsigned int *phard_addr,
 			int buf,
-			void *data);
+			void *mem_param);
 int mmngr_import_end_in_user_ext(int id);
 
 /* Gen2 Legacy API */
