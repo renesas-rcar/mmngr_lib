@@ -1,2 +1,5 @@
-MMNGR v1.0.0
+MMNGR v0.1
 	1. Initial Gen3 support.
+
+MMNGR v0.2
+	1. Remove redundant step in library build instruction.
