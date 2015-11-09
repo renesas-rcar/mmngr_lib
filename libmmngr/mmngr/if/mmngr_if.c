@@ -205,6 +205,8 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 			void *mem_param)
 {
 	int ret;
+	struct MM_FUNC *p;
+	unsigned int *val;
 
 	if ((pid == NULL) || (phard_addr == NULL)
 	|| (puser_virt_addr == NULL) || (size == 0)) {
@@ -213,9 +215,39 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 	}
 
 	if ((flag != MM_KERNELHEAP) && (flag != MM_CARVEOUT)
-	&& (flag != MM_CARVEOUT_SSP)) {
+	&& (flag != MM_CARVEOUT_SSP) && (flag != MM_CARVEOUT_LOSSY)) {
 		ret = R_MM_PARE;
 		goto exit;
+	}
+
+	if (flag == MM_CARVEOUT_LOSSY) {
+		if (mem_param == NULL) {
+			ret = R_MM_PARE;
+			goto exit;
+		} else { /* mem_param != NULL */
+			p = (struct MM_FUNC *)mem_param;
+
+			if (p->func == MM_FUNC_LOSSY_DISABLE) {
+				flag = MM_CARVEOUT;
+			} else { /* p->func == MM_FUNC_LOSSY_ENABLE */
+				val = p->conf;
+#ifdef MM_FUNC_LOSSY_SUPPORT
+				*val = MM_FUNC_STAT_LOSSY_SUPPORT;
+
+				if ((p->type != MM_FUNC_TYPE_LOSSY_AREA)
+				&& ((p->attr != MM_FUNC_FMT_LOSSY_YUVPLANAR)
+				 || (p->attr != MM_FUNC_FMT_LOSSY_YUV422INTLV)
+				 || (p->attr != MM_FUNC_FMT_LOSSY_ARGB8888))) {
+					ret = R_MM_PARE;
+					goto exit;
+				}
+#else
+				*val = MM_FUNC_STAT_LOSSY_NOT_SUPPORT;
+				ret = R_MM_NOMEM;
+				goto exit;
+#endif
+			}
+		}
 	}
 
 	if (flag == MM_KERNELHEAP) {
@@ -233,8 +265,12 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 					puser_virt_addr, flag);
 		if (ret)
 			goto exit;
+	} else { /* flag == MM_CARVEOUT_LOSSY */
+		ret = mm_alloc_co_in_user(pid, size, phard_addr,
+					puser_virt_addr, flag);
+		if (ret)
+			goto exit;
 	}
-
 	return R_MM_OK;
 exit:
 	return ret;
@@ -267,6 +303,15 @@ int mmngr_free_in_user_ext(MMNGR_ID id)
 		ret = mm_free_co_in_user(id);
 		if (ret)
 			goto exit;
+	} else if (p.flag == MM_CARVEOUT_LOSSY) {
+#ifdef MM_FUNC_LOSSY_SUPPORT
+		ret = mm_free_co_in_user(id);
+		if (ret)
+			goto exit;
+#else
+		ret = R_MM_PARE;
+		goto exit;
+#endif
 	}  else {
 		ret = R_MM_PARE;
 		goto exit;
