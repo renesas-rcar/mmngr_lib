@@ -8,6 +8,13 @@
 
 typedef int MMNGR_ID;
 
+struct MM_FUNC {
+	unsigned int func;
+	unsigned int type;
+	unsigned int attr;
+	unsigned int *conf;
+};
+
 /* Gen3 API */
 int mmngr_alloc_in_user_ext(MMNGR_ID *pid,
 			size_t size,
@@ -54,8 +61,21 @@ int mmngr_release_in_user(MMNGR_ID id);
 #define MMNGR_VA_SUPPORT	MM_KERNELHEAP
 #define MMNGR_PA_SUPPORT	MM_CARVEOUT
 #define MMNGR_PA_SUPPORT_SSP	MM_CARVEOUT_SSP
+#define MMNGR_PA_SUPPORT_LOSSY	MM_CARVEOUT_LOSSY
 #define MM_KERNELHEAP		0
 #define MM_CARVEOUT		1
 #define MM_CARVEOUT_SSP		3
+#define MM_CARVEOUT_LOSSY	4
+
+#define MM_FUNC_LOSSY_SUPPORT
+#define MM_FUNC_LOSSY_DISABLE		0x0
+#define MM_FUNC_LOSSY_ENABLE		0x1
+#define MM_FUNC_TYPE_LOSSY_AREA		0x1
+#define MM_FUNC_TYPE_LOSSY_SHADOW	0x2
+#define MM_FUNC_FMT_LOSSY_YUVPLANAR	0x1
+#define MM_FUNC_FMT_LOSSY_YUV422INTLV	0x2
+#define MM_FUNC_FMT_LOSSY_ARGB8888	0x3
+#define MM_FUNC_STAT_LOSSY_NOT_SUPPORT	0x0
+#define MM_FUNC_STAT_LOSSY_SUPPORT	0x1
 
 #endif	/* __MMNGR_USER_PUBLIC_H__ */
