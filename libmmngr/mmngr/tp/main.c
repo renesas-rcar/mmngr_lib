@@ -171,6 +171,131 @@ exit:
 	printf("one END-------------\n");
 }
 
+void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
+{
+	int		ret;
+	MMNGR_ID	id;
+	MMNGR_ID	ids;
+	int		i;
+	unsigned char	*p;
+	unsigned int	hard_addr;
+	unsigned int	conf;
+	void		*user_virt_addr;
+	void		*user_virt_addr_s;
+	struct		MM_FUNC mem;
+
+	printf("Lossy START-------------\n");
+
+	if (flag == MMNGR_PA_SUPPORT) {
+		ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+					      &user_virt_addr, flag, NULL);
+		if (ret)
+			goto exit;
+
+		printf("hard_addr %x, user_virt_addr %lx\n",
+			hard_addr, (unsigned long)user_virt_addr);
+
+		ret = mmngr_free_in_user_ext(id);
+		if (ret)
+			goto exit;
+	}
+
+	if (flag == MMNGR_PA_SUPPORT_LOSSY) {
+		memset(&mem, 0, sizeof(mem));
+		if (tc == 1) { /* Case 1: Lossy Disable */
+			mem.func = MM_FUNC_LOSSY_DISABLE;
+
+			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+						      &user_virt_addr, flag, &mem);
+			if (ret)
+				goto exit;
+
+			printf("hard_addr %x, user_virt_addr %lx\n",
+				hard_addr, (unsigned long)user_virt_addr);
+
+			ret = mmngr_free_in_user_ext(id);
+			if (ret)
+				goto exit;
+		} else if (tc == 2) { /* Case 2: Wrong Parameters */
+			mem.func = MM_FUNC_LOSSY_ENABLE;
+			mem.type = MM_FUNC_TYPE_LOSSY_SHADOW;
+
+			/* Reset the value for next test */
+			hard_addr = 0;
+			user_virt_addr = NULL;
+
+			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+						      &user_virt_addr, flag, &mem);
+			if (ret != R_MM_PARE)
+				goto exit;
+		} else if (tc == 3) { /* Case 3: Correct parameter */
+			mem.func = MM_FUNC_LOSSY_ENABLE;
+			mem.type = MM_FUNC_TYPE_LOSSY_AREA;
+			mem.attr = MM_FUNC_FMT_LOSSY_YUVPLANAR;
+			mem.conf = &conf;
+
+			/* Reset the value for next test */
+			hard_addr = 0;
+			user_virt_addr = NULL;
+
+			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+						      &user_virt_addr, flag, &mem);
+			if (ret)
+				goto exit;
+
+			ret = mmngr_debug_map_va_ext(&ids, size, hard_addr,
+						     &user_virt_addr_s, NULL);
+			if (ret)
+				goto exit;
+
+			printf("hard_addr %x, user_virt_addr %lx, share %lx\n",
+				hard_addr, (unsigned long)user_virt_addr,
+				(unsigned long)user_virt_addr_s);
+
+			p = (unsigned char *)user_virt_addr_s;
+
+			for (i = 0; i < size; i++)
+				p[i] = 0xCC;
+
+			for (i = 0; i < size; i++) {
+				if (p[i] != 0xCC)
+					goto exit;
+			}
+
+			ret = mmngr_debug_unmap_va_ext(ids);
+			if (ret)
+				goto exit;
+
+			ret = mmngr_free_in_user_ext(id);
+			if (ret)
+				goto exit;
+		} else if (tc == 4) { /* Case 4: STAT LOSSY NOT SUPPORT */
+			mem.func = MM_FUNC_LOSSY_ENABLE;
+			mem.type = MM_FUNC_TYPE_LOSSY_AREA;
+			mem.attr = MM_FUNC_FMT_LOSSY_YUVPLANAR;
+			mem.conf = &conf;
+
+			/* Reset the value for next test */
+			hard_addr = 0;
+			user_virt_addr = NULL;
+
+			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+						      &user_virt_addr, flag, &mem);
+			if ((ret != R_MM_NOMEM)
+			|| (conf != MM_FUNC_STAT_LOSSY_NOT_SUPPORT))
+				goto exit;
+		}
+	}
+
+	printf("test64 Lossy OK\n");
+	printf("Lossy END-------------\n");
+	return;
+
+exit:
+	printf("test64 Lossy NG\n");
+	printf("Lossy END-------------\n");
+}
+
 void test_for_gen2(unsigned long flag, unsigned long size)
 {
 	one_test_for_gen2(flag, size);
@@ -181,6 +306,13 @@ void test_for_gen2(unsigned long flag, unsigned long size)
 void test_for_gen3(unsigned int flag, unsigned long size)
 {
 	one_test_for_gen3(flag, (size_t)size);
+	printf("\n");
+	sleep(1);
+}
+
+void test_for_gen3_lossy(unsigned int flag, unsigned long size, unsigned int tc)
+{
+	one_test_for_gen3_lossy(flag, (size_t)size, tc);
 	printf("\n");
 	sleep(1);
 }
@@ -227,6 +359,15 @@ int main(int argc, char *argv[])
 	test_for_gen3(MMNGR_VA_SUPPORT, size);
 	test_for_gen3(MMNGR_PA_SUPPORT, size);
 	test_for_gen3(MMNGR_PA_SUPPORT_SSP, size);
+
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT, size, 0);
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 1);
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 2);
+#ifdef MM_FUNC_LOSSY_SUPPORT
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 3);
+#else
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 4);
+#endif
 
 	return 0;
 }
