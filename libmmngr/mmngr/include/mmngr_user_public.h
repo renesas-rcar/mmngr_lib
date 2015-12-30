@@ -67,7 +67,6 @@ int mmngr_release_in_user(MMNGR_ID id);
 #define MM_CARVEOUT_SSP		3
 #define MM_CARVEOUT_LOSSY	4
 
-#define MM_FUNC_LOSSY_SUPPORT
 #define MM_FUNC_LOSSY_DISABLE		0x0
 #define MM_FUNC_LOSSY_ENABLE		0x1
 #define MM_FUNC_TYPE_LOSSY_AREA		0x1

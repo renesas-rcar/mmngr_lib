@@ -237,15 +237,6 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 					ret = R_MM_PARE;
 					goto exit;
 				}
-
-				val = (unsigned int *)p->conf;
-#ifdef MM_FUNC_LOSSY_SUPPORT
-				*val = MM_FUNC_STAT_LOSSY_SUPPORT;
-#else
-				*val = MM_FUNC_STAT_LOSSY_NOT_SUPPORT;
-				ret = R_MM_NOMEM;
-				goto exit;
-#endif
 			}
 		}
 	}
@@ -268,8 +259,14 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 	} else { /* flag == MM_CARVEOUT_LOSSY */
 		ret = mm_alloc_co_in_user(pid, size, phard_addr,
 					puser_virt_addr, flag);
-		if (ret)
+
+		val = (unsigned int *)p->conf;
+		if (ret) {
+			*val = MM_FUNC_STAT_LOSSY_NOT_SUPPORT;
 			goto exit;
+		} else {
+			*val = MM_FUNC_STAT_LOSSY_SUPPORT;
+		}
 	}
 	return R_MM_OK;
 exit:
@@ -304,14 +301,9 @@ int mmngr_free_in_user_ext(MMNGR_ID id)
 		if (ret)
 			goto exit;
 	} else if (p.flag == MM_CARVEOUT_LOSSY) {
-#ifdef MM_FUNC_LOSSY_SUPPORT
 		ret = mm_free_co_in_user(id);
 		if (ret)
 			goto exit;
-#else
-		ret = R_MM_PARE;
-		goto exit;
-#endif
 	}  else {
 		ret = R_MM_PARE;
 		goto exit;
