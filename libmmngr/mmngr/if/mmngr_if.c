@@ -261,8 +261,11 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 					puser_virt_addr, flag);
 
 		val = (unsigned int *)p->conf;
-		if (ret) {
+		if (ret == R_MM_PARE) {
 			*val = MM_FUNC_STAT_LOSSY_NOT_SUPPORT;
+			goto exit;
+		} else if (ret < 0) {
+			*val = MM_FUNC_STAT_LOSSY_SUPPORT;
 			goto exit;
 		} else {
 			*val = MM_FUNC_STAT_LOSSY_SUPPORT;
