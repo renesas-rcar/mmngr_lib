@@ -363,11 +363,8 @@ int main(int argc, char *argv[])
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT, size, 0);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 1);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 2);
-#ifdef MM_FUNC_LOSSY_SUPPORT
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 3);
-#else
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 4);
-#endif
 
 	return 0;
 }
