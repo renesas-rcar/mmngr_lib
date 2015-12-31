@@ -257,6 +257,7 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 		if (ret)
 			goto exit;
 	} else { /* flag == MM_CARVEOUT_LOSSY */
+		flag = (flag & 0xF) | (p->attr << 4);
 		ret = mm_alloc_co_in_user(pid, size, phard_addr,
 					puser_virt_addr, flag);
 
@@ -303,7 +304,7 @@ int mmngr_free_in_user_ext(MMNGR_ID id)
 		ret = mm_free_co_in_user(id);
 		if (ret)
 			goto exit;
-	} else if (p.flag == MM_CARVEOUT_LOSSY) {
+	} else if ((p.flag & 0xF) == MM_CARVEOUT_LOSSY) {
 		ret = mm_free_co_in_user(id);
 		if (ret)
 			goto exit;
