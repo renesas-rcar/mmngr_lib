@@ -270,9 +270,10 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			if (ret)
 				goto exit;
 		} else if (tc == 4) { /* Case 4: STAT LOSSY NOT SUPPORT */
+			/* FIXME: Assume that ARGB8888 is not supported */
 			mem.func = MM_FUNC_LOSSY_ENABLE;
 			mem.type = MM_FUNC_TYPE_LOSSY_AREA;
-			mem.attr = MM_FUNC_FMT_LOSSY_YUVPLANAR;
+			mem.attr = MM_FUNC_FMT_LOSSY_ARGB8888;
 			mem.conf = &conf;
 
 			/* Reset the value for next test */
@@ -281,8 +282,8 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
 						      &user_virt_addr, flag, &mem);
-			if ((ret != R_MM_NOMEM)
-			|| (conf != MM_FUNC_STAT_LOSSY_NOT_SUPPORT))
+			if ((ret != R_MM_PARE)
+			&& (conf != MM_FUNC_STAT_LOSSY_NOT_SUPPORT))
 				goto exit;
 		}
 	}
