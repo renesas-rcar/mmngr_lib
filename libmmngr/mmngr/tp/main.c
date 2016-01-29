@@ -327,8 +327,49 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			ret = mmngr_free_in_user_ext(id);
 			if (ret)
 				goto exit;
-		}
+		} else if (tc == 6) { /* Case 6: Correct parameter */
+			mem.func = MM_FUNC_LOSSY_ENABLE;
+			mem.type = MM_FUNC_TYPE_LOSSY_AREA;
+			mem.attr = MM_FUNC_FMT_LOSSY_YUV422INTLV;
 
+			mem.conf = &conf;
+
+			/* Reset the value for next test */
+			hard_addr = 0;
+			user_virt_addr = NULL;
+
+			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
+						&user_virt_addr, flag, &mem);
+			if (ret)
+				goto exit;
+
+			ret = mmngr_debug_map_va_ext(&ids, size, hard_addr,
+						     &user_virt_addr_s, NULL);
+			if (ret)
+				goto exit;
+
+			printf("hard_addr %x, user_virt_addr %lx, share %lx\n",
+				hard_addr, (unsigned long)user_virt_addr,
+				(unsigned long)user_virt_addr_s);
+
+			p = (unsigned char *)user_virt_addr_s;
+
+			for (i = 0; i < size; i++)
+				p[i] = 0xCC;
+
+			for (i = 0; i < size; i++) {
+				if (p[i] != 0xCC)
+					goto exit;
+			}
+
+			ret = mmngr_debug_unmap_va_ext(ids);
+			if (ret)
+				goto exit;
+
+			ret = mmngr_free_in_user_ext(id);
+			if (ret)
+				goto exit;
+		}
 	}
 
 	printf("test64 Lossy OK\n");
@@ -408,8 +449,9 @@ int main(int argc, char *argv[])
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 1);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 2);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 3);
-	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 4);
+	/* test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 4); */
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 5);
+	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 6);
 
 	return 0;
 }
