@@ -39,8 +39,10 @@ void one_test_for_gen2(unsigned long flag, unsigned long size)
 			p[i] = 0xCC;
 
 		for (i = 0; i < size; i++) {
-			if (p[i] != 0xCC)
-				goto exit;
+			if (p[i] != 0xCC) {
+				printf("<ERROR> Data mismatch happen!!");
+				break;
+			}
 		}
 
 		ret = mmngr_free_in_user(id);
@@ -69,8 +71,10 @@ void one_test_for_gen2(unsigned long flag, unsigned long size)
 			p[i] = 0xCC;
 
 		for (i = 0; i < size; i++) {
-			if (p[i] != 0xCC)
-				goto exit;
+			if (p[i] != 0xCC) {
+				printf("<ERROR> Data mismatch happen!!");
+				break;
+			}
 		}
 
 		ret = mmngr_debug_unmap_va(ids);
@@ -119,8 +123,10 @@ void one_test_for_gen3(unsigned int flag, size_t size)
 			p[i] = 0xCC;
 
 		for (i = 0; i < size; i++) {
-			if (p[i] != 0xCC)
-				goto exit;
+			if (p[i] != 0xCC) {
+				printf("<ERROR> Data mismatch happen!!");
+				break;
+			}
 		}
 
 		ret = mmngr_free_in_user_ext(id);
@@ -149,8 +155,10 @@ void one_test_for_gen3(unsigned int flag, size_t size)
 			p[i] = 0xCC;
 
 		for (i = 0; i < size; i++) {
-			if (p[i] != 0xCC)
-				goto exit;
+			if (p[i] != 0xCC) {
+				printf("<ERROR> Data mismatch happen!!");
+				break;
+			}
 		}
 
 		ret = mmngr_debug_unmap_va_ext(ids);
@@ -259,8 +267,10 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 				p[i] = 0xCC;
 
 			for (i = 0; i < size; i++) {
-				if (p[i] != 0xCC)
-					goto exit;
+				if (p[i] != 0xCC) {
+					printf("<ERROR> Data mismatch happen!!");
+					break;
+				}
 			}
 
 			ret = mmngr_debug_unmap_va_ext(ids);
@@ -317,8 +327,10 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 				p[i] = 0xCC;
 
 			for (i = 0; i < size; i++) {
-				if (p[i] != 0xCC)
-					goto exit;
+				if (p[i] != 0xCC) {
+					printf("<ERROR> Data mismatch happen!!");
+					break;
+				}
 			}
 
 			ret = mmngr_debug_unmap_va_ext(ids);
@@ -359,8 +371,10 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 				p[i] = 0xCC;
 
 			for (i = 0; i < size; i++) {
-				if (p[i] != 0xCC)
-					goto exit;
+				if (p[i] != 0xCC) {
+					printf("<ERROR> Data mismatch happen!!");
+					break;
+				}
 			}
 
 			ret = mmngr_debug_unmap_va_ext(ids);
