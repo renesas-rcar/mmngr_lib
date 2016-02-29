@@ -3,3 +3,7 @@ MMNGR v0.1
 
 MMNGR v0.2
 	1. Remove redundant step in library build instruction.
+
+MMNGR v0.3
+	1. Fix warning in TP when change to use new build environment.
+	   i.e GCC 5.1 and libc 2.22
