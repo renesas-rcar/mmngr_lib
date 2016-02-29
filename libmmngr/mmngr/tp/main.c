@@ -245,6 +245,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			/* Reset the value for next test */
 			hard_addr = 0;
 			user_virt_addr = NULL;
+			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
 						      &user_virt_addr, flag, &mem);
@@ -290,6 +291,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			/* Reset the value for next test */
 			hard_addr = 0;
 			user_virt_addr = NULL;
+			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
 						      &user_virt_addr, flag, &mem);
@@ -306,10 +308,12 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			/* Reset the value for next test */
 			hard_addr = 0;
 			user_virt_addr = NULL;
+			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
 						&user_virt_addr, flag, &mem);
-			if (ret)
+			if ((ret)
+			|| (conf != MM_FUNC_STAT_LOSSY_SUPPORT))
 				goto exit;
 
 			ret = mmngr_debug_map_va_ext(&ids, size, hard_addr,
@@ -350,10 +354,12 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 			/* Reset the value for next test */
 			hard_addr = 0;
 			user_virt_addr = NULL;
+			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
 						&user_virt_addr, flag, &mem);
-			if (ret)
+			if ((ret)
+			|| (conf != MM_FUNC_STAT_LOSSY_SUPPORT))
 				goto exit;
 
 			ret = mmngr_debug_map_va_ext(&ids, size, hard_addr,
