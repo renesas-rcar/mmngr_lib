@@ -40,7 +40,7 @@ void one_test_for_gen2(unsigned long flag, unsigned long size)
 
 		for (i = 0; i < size; i++) {
 			if (p[i] != 0xCC) {
-				printf("<ERROR> Data mismatch happen!!");
+				printf("<ERROR> Data mismatch happen!!\n");
 				break;
 			}
 		}
@@ -72,7 +72,7 @@ void one_test_for_gen2(unsigned long flag, unsigned long size)
 
 		for (i = 0; i < size; i++) {
 			if (p[i] != 0xCC) {
-				printf("<ERROR> Data mismatch happen!!");
+				printf("<ERROR> Data mismatch happen!!\n");
 				break;
 			}
 		}
@@ -124,7 +124,7 @@ void one_test_for_gen3(unsigned int flag, size_t size)
 
 		for (i = 0; i < size; i++) {
 			if (p[i] != 0xCC) {
-				printf("<ERROR> Data mismatch happen!!");
+				printf("<ERROR> Data mismatch happen!!\n");
 				break;
 			}
 		}
@@ -156,7 +156,7 @@ void one_test_for_gen3(unsigned int flag, size_t size)
 
 		for (i = 0; i < size; i++) {
 			if (p[i] != 0xCC) {
-				printf("<ERROR> Data mismatch happen!!");
+				printf("<ERROR> Data mismatch happen!!\n");
 				break;
 			}
 		}
@@ -269,7 +269,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!");
+					printf("<ERROR> Data mismatch happen!!\n");
 					break;
 				}
 			}
@@ -332,7 +332,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!");
+					printf("<ERROR> Data mismatch happen!!\n");
 					break;
 				}
 			}
@@ -378,7 +378,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!");
+					printf("<ERROR> Data mismatch happen!!\n");
 					break;
 				}
 			}
