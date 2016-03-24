@@ -7,3 +7,6 @@ MMNGR v0.2
 MMNGR v0.3
 	1. Fix warning in TP when change to use new build environment.
 	   i.e GCC 5.1 and libc 2.22
+
+MMNGR v0.4
+	1. Add support for Lossy Decompression feature.
