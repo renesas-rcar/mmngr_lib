@@ -471,8 +471,8 @@ int main(int argc, char *argv[])
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 2);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 3);
 	/* test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 4); */
-	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 5);
-	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 6);
+	/* test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 5); */
+	/* test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 6); */
 
 	return 0;
 }
