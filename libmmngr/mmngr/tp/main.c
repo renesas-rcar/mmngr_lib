@@ -433,11 +433,14 @@ int main(int argc, char *argv[])
 	char mem_type[1];
 	unsigned int length;
 	unsigned long size;
+	char	is_support_ssp;
+
+	printf("Test command: mmtp <mem_size><mem_type> <ssp>\n");
+		printf("<mem_size><mem_type>: e.g 1024B, 256K, 1M\n");
+		printf("<ssp>: [optional] enable SSP test execution\n\n");
 
 	if (argc == 1) {
-		printf("\nWARN: Lack of mem size. Use default 256K.\n");
-		printf("Test command: mmtp <mem_size><mem_type>\n");
-		printf("<mem_size><mem_type>: e.g 1024B, 256K, 1M\n\n");
+		printf("WARN: Lack of mem size/mem type. Use 256K.\n\n");
 		size = 256 * 1024;
 	} else {
 		length = strlen(argv[1]);
@@ -451,20 +454,24 @@ int main(int argc, char *argv[])
 		} else if (!strcmp(mem_type, "M")) { /* Size in MBytes */
 			size *= 1048576;               /* 1024 * 1024 */
 		} else {
-			printf("\nWARN: Lack of mem size. Use default 256K.\n");
-			printf("Test command: mmtp <mem_size><mem_type>\n");
-			printf("<mem_size><mem_type>: e.g 1024B, 256K, 1M\n\n");
+			printf("WARN: Incorrect mem type. Use 256K.\n\n");
 			size = 256 * 1024;
 		}
-	}
 
+		if ((argc == 3) && (!strcmp(argv[2], "ssp")))
+			is_support_ssp = 1;
+		else
+			is_support_ssp = 0;
+	}
 	test_for_gen2(MMNGR_VA_SUPPORT, size);
 	test_for_gen2(MMNGR_PA_SUPPORT, size);
-	test_for_gen2(MMNGR_PA_SUPPORT_SSP, size);
+	if (is_support_ssp)
+		test_for_gen2(MMNGR_PA_SUPPORT_SSP, size);
 
 	test_for_gen3(MMNGR_VA_SUPPORT, size);
 	test_for_gen3(MMNGR_PA_SUPPORT, size);
-	test_for_gen3(MMNGR_PA_SUPPORT_SSP, size);
+	if (is_support_ssp)
+		test_for_gen3(MMNGR_PA_SUPPORT_SSP, size);
 
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT, size, 0);
 	test_for_gen3_lossy(MMNGR_PA_SUPPORT_LOSSY, size, 1);
@@ -476,4 +483,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
