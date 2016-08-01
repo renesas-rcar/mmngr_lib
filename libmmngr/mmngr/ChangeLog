@@ -10,3 +10,9 @@ MMNGR v0.3
 
 MMNGR v0.4
 	1. Add support for Lossy Decompression feature.
+
+MMNGR v0.5
+	1. Disable unsupported Lossy test cases.
+	2. Update debug logs in Lossy test cases.
+	3. Update MIT license.
+	4. Update TP handling for SSP test cases.
