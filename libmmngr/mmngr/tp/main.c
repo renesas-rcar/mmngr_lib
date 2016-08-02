@@ -269,7 +269,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!\n");
+					printf("Data mismatch due to Lossy.\n");
 					break;
 				}
 			}
@@ -332,7 +332,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!\n");
+					printf("Data mismatch due to Lossy.\n");
 					break;
 				}
 			}
@@ -378,7 +378,7 @@ void one_test_for_gen3_lossy(unsigned int flag, size_t size, unsigned int tc)
 
 			for (i = 0; i < size; i++) {
 				if (p[i] != 0xCC) {
-					printf("<ERROR> Data mismatch happen!!\n");
+					printf("Data mismatch due to Lossy.\n");
 					break;
 				}
 			}
