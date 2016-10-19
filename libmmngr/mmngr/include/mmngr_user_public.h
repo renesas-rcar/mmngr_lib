@@ -1,10 +1,12 @@
 /*
- * Copyright (c) 2015 Renesas Electronics Corporation
+ * Copyright (c) 2015-2016 Renesas Electronics Corporation
  * Released under the MIT license
  * http://opensource.org/licenses/mit-license.php
  */
 #ifndef	__MMNGR_USER_PUBLIC_H__
 #define __MMNGR_USER_PUBLIC_H__
+
+#include "mmngr_public_cmn.h"
 
 typedef int MMNGR_ID;
 
@@ -62,10 +64,6 @@ int mmngr_release_in_user(MMNGR_ID id);
 #define MMNGR_PA_SUPPORT	MM_CARVEOUT
 #define MMNGR_PA_SUPPORT_SSP	MM_CARVEOUT_SSP
 #define MMNGR_PA_SUPPORT_LOSSY	MM_CARVEOUT_LOSSY
-#define MM_KERNELHEAP		0
-#define MM_CARVEOUT		1
-#define MM_CARVEOUT_SSP		3
-#define MM_CARVEOUT_LOSSY	4
 
 #define MM_FUNC_LOSSY_DISABLE		0x0
 #define MM_FUNC_LOSSY_ENABLE		0x1
