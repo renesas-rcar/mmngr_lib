@@ -4,3 +4,7 @@ MMNGRBUF v0.1
 MMNGRBUF v0.2
 	1. Remove redundant step in library build instruction.
 	2. Change an API parameter name to mem_param from data.
+
+MMNGRBUF v0.3
+	1. Remove duplicate definitions in user header files and driver header files,
+	   then use common header files exported by driver.
