@@ -16,3 +16,7 @@ MMNGR v0.5
 	2. Update debug logs in Lossy test cases.
 	3. Update MIT license.
 	4. Update TP handling for SSP test cases.
+
+MMNGR v0.6
+	1. Remove duplicate definitions in user header files and driver header files,
+	   then use common header files exported by driver.
