@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Renesas Electronics Corporation
+ * Copyright (c) 2015-2016 Renesas Electronics Corporation
  * Released under the MIT license
  * http://opensource.org/licenses/mit-license.php
  */
@@ -231,9 +231,9 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 				flag = MM_CARVEOUT;
 			} else { /* p->func == MM_FUNC_LOSSY_ENABLE */
 				if ((p->type != MM_FUNC_TYPE_LOSSY_AREA)
-				&& ((p->attr != MM_FUNC_FMT_LOSSY_YUVPLANAR)
-				 || (p->attr != MM_FUNC_FMT_LOSSY_YUV422INTLV)
-				 || (p->attr != MM_FUNC_FMT_LOSSY_ARGB8888))) {
+				|| ((p->attr != MM_FUNC_FMT_LOSSY_YUVPLANAR)
+				 && (p->attr != MM_FUNC_FMT_LOSSY_YUV422INTLV)
+				 && (p->attr != MM_FUNC_FMT_LOSSY_ARGB8888))) {
 					ret = R_MM_PARE;
 					goto exit;
 				}
