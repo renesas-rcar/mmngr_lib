@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Renesas Electronics Corporation
+ * Copyright (c) 2015-2016 Renesas Electronics Corporation
  * Released under the MIT license
  * http://opensource.org/licenses/mit-license.php
  */
@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include "mmngr_buf_user_public.h"
 
-int test_for_gen3(void)
+static int test_for_gen3(void)
 {
 	int id_export[64];
 	int id_import[64];
@@ -155,7 +155,7 @@ exit:
 	return -1;
 }
 
-int test_for_gen2(void)
+static int test_for_gen2(void)
 {
 	int id_export[64];
 	int id_import[64];
