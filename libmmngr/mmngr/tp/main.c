@@ -215,7 +215,8 @@ static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
 			mem.func = MM_FUNC_LOSSY_DISABLE;
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
-						      &user_virt_addr, flag, &mem);
+						      &user_virt_addr, flag,
+						      &mem);
 			if (ret)
 				goto exit;
 
@@ -234,7 +235,8 @@ static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
 			user_virt_addr = NULL;
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
-						      &user_virt_addr, flag, &mem);
+						      &user_virt_addr, flag,
+						      &mem);
 			if (ret != R_MM_PARE)
 				goto exit;
 		} else if (tc == 3) { /* Case 3: Correct parameter */
@@ -249,7 +251,8 @@ static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
 			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
-						      &user_virt_addr, flag, &mem);
+						      &user_virt_addr, flag,
+						      &mem);
 			if ((ret)
 			|| (conf != MM_FUNC_STAT_LOSSY_SUPPORT))
 				goto exit;
@@ -295,7 +298,8 @@ static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
 			conf = 2; /* dummy value */
 
 			ret = mmngr_alloc_in_user_ext(&id, size, &hard_addr,
-						      &user_virt_addr, flag, &mem);
+						      &user_virt_addr, flag,
+						      &mem);
 			if ((ret != R_MM_PARE)
 			&& (conf != MM_FUNC_STAT_LOSSY_NOT_SUPPORT))
 				goto exit;
