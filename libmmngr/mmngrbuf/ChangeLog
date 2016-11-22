@@ -8,3 +8,6 @@ MMNGRBUF v0.2
 MMNGRBUF v0.3
 	1. Remove duplicate definitions in user header files and driver header files,
 	   then use common header files exported by driver.
+
+MMNGRBUF v0.4
+	1. Declare static for local function in MMNGRBUF TP.
