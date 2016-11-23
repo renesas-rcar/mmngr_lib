@@ -88,6 +88,8 @@ static int mm_free_kh_in_user(MMNGR_ID id)
 	int		ret;
 	struct MM_PARAM	p;
 
+	memset(&p, 0, sizeof(p));
+
 	ret = ioctl(id, MM_IOC_GET, &p);
 	if (ret) {
 		perror("MMI GET");
@@ -282,6 +284,8 @@ int mmngr_free_in_user_ext(MMNGR_ID id)
 	int		ret;
 	struct MM_PARAM	p;
 
+	memset(&p, 0, sizeof(p));
+
 	ret = ioctl(id, MM_IOC_GET, &p);
 	if (ret) {
 		if (errno == EBADF)
@@ -346,6 +350,7 @@ int mmngr_share_in_user_ext(MMNGR_ID *pid,
 		goto exit;
 	}
 
+	memset(&p, 0, sizeof(p));
 	p.size = size;
 	p.phy_addr = (unsigned long long)hard_addr;
 	ret = ioctl(fd, MM_IOC_SHARE, &p);
@@ -385,6 +390,8 @@ int mmngr_release_in_user_ext(MMNGR_ID id)
 	int		ret;
 	unsigned char	*mp;
 	struct MM_PARAM	p;
+
+	memset(&p, 0, sizeof(p));
 
 	ret = ioctl(id, MM_IOC_GET, &p);
 	if (ret) {
