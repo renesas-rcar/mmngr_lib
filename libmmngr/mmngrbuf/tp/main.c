@@ -9,6 +9,9 @@
 #include <pthread.h>
 #include "mmngr_buf_user_public.h"
 
+static int test_for_gen3(void);
+static int test_for_gen2(void);
+
 static int test_for_gen3(void)
 {
 	int id_export[64];
