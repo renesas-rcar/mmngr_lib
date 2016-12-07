@@ -11,6 +11,15 @@
 #include <pthread.h>
 #include "mmngr_user_public.h"
 
+static void one_test_for_gen2(unsigned long flag, unsigned long size);
+static void one_test_for_gen3(unsigned int flag, size_t size);
+static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
+				    unsigned int tc);
+static void test_for_gen2(unsigned long flag, unsigned long size);
+static void test_for_gen3(unsigned int flag, unsigned long size);
+static void test_for_gen3_lossy(unsigned int flag, unsigned long size,
+				unsigned int tc);
+
 static void one_test_for_gen2(unsigned long flag, unsigned long size)
 {
 	int		ret;
