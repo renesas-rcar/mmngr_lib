@@ -11,3 +11,6 @@ MMNGRBUF v0.3
 
 MMNGRBUF v0.4
 	1. Declare static for local function in MMNGRBUF TP.
+
+MMNGRBUF v0.5
+	1. Add function prototype declaration for test program.
