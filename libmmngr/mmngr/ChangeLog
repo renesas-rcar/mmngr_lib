@@ -25,3 +25,7 @@ MMNGR v0.7
 	1. Correct the logic of checking Lossy area type and image format.
 	2. Declare static for local function in MMNGR TP.
 	3. Fix line over 80 characters.
+
+MMNGR v0.8
+	1. Initialize MM_PARAM struct before calling ioctl() function.
+	2. Add function prototype declaration for test program.
