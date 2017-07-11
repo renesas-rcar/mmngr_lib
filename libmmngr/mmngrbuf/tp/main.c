@@ -35,7 +35,6 @@ static int test_for_gen3(void)
 			goto exit;
 	}
 
-
 	for (i = 0; i < 64; i++) {
 		ret = mmngr_export_start_in_user_ext(
 				&id_export[i], 1, 2, &buf, NULL);
@@ -48,7 +47,6 @@ static int test_for_gen3(void)
 		if (ret)
 			goto exit;
 	}
-
 
 	printf("case 2: import repeat test\n");
 
@@ -91,7 +89,6 @@ static int test_for_gen3(void)
 	if (ret)
 		goto exit;
 
-
 	printf("case 3: export and import repeat test\n");
 
 	for (i = 0; i < 64; i++) {
@@ -116,7 +113,6 @@ static int test_for_gen3(void)
 		if (ret)
 			goto exit;
 	}
-
 
 	printf("case 4: parameter test\n");
 
@@ -150,7 +146,6 @@ static int test_for_gen3(void)
 	if (ret != R_MM_PARE)
 		goto exit;
 
-
 	printf("dmabuf test64 ok\n");
 	return 0;
 exit:
@@ -180,7 +175,6 @@ static int test_for_gen2(void)
 			goto exit;
 	}
 
-
 	for (i = 0; i < 64; i++) {
 		ret = mmngr_export_start_in_user(&id_export[i], 1, 2, &buf);
 		if (ret)
@@ -192,7 +186,6 @@ static int test_for_gen2(void)
 		if (ret)
 			goto exit;
 	}
-
 
 	printf("case 2: import repeat test\n");
 
@@ -234,7 +227,6 @@ static int test_for_gen2(void)
 	if (ret)
 		goto exit;
 
-
 	printf("case 3: export and import repeat test\n");
 
 	for (i = 0; i < 64; i++) {
@@ -259,7 +251,6 @@ static int test_for_gen2(void)
 		if (ret)
 			goto exit;
 	}
-
 
 	printf("case 4: parameter test\n");
 
@@ -286,7 +277,6 @@ static int test_for_gen2(void)
 	ret = mmngr_import_start_in_user(&id_import[0], &size, NULL, buf);
 	if (ret != R_MM_PARE)
 		goto exit;
-
 
 	printf("dmabuf test32 ok\n");
 	return 0;
