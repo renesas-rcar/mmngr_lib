@@ -431,7 +431,7 @@ int mmngr_alloc_in_user(MMNGR_ID *pid, unsigned long size,
 			unsigned long flag)
 {
 	int		ret;
-	size_t		tmp_size = (size_t) size;
+	size_t		tmp_size = (size_t)size;
 	unsigned int	hard_addr;
 	void		*tmp;
 	unsigned int	tmp_flag = (unsigned int)flag;
@@ -460,7 +460,7 @@ int mmngr_share_in_user(MMNGR_ID *pid,
 			unsigned long *puser_virt_addr)
 {
 	int		ret;
-	size_t		tmp_size = (size_t) size;
+	size_t		tmp_size = (size_t)size;
 	unsigned int	tmp_hard_addr = (unsigned int)hard_addr;
 	void		*tmp;
 
