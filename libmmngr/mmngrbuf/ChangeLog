@@ -14,3 +14,6 @@ MMNGRBUF v0.4
 
 MMNGRBUF v0.5
 	1. Add function prototype declaration for test program.
+
+MMNGRBUF v1.0
+	1. Improve coding style, i.e. remove unnecessary spaces in MMNGRBUF TP
