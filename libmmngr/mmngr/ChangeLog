@@ -29,3 +29,6 @@ MMNGR v0.7
 MMNGR v0.8
 	1. Initialize MM_PARAM struct before calling ioctl() function.
 	2. Add function prototype declaration for test program.
+
+MMNGR v1.0
+	1. Improve coding style, i.e. remove unnecessary spaces
