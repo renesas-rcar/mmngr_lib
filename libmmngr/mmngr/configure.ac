@@ -16,4 +16,5 @@ AM_CONDITIONAL([HAVE_MMNGR_TEST], [test "x${mmngr_test}" = "xyes"])
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(if/Makefile)
 AC_CONFIG_FILES(tp/Makefile)
+AC_CONFIG_MACRO_DIRS([m4])
 AC_OUTPUT
