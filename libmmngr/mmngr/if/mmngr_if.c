@@ -231,7 +231,7 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 
 			if (p->func == MM_FUNC_LOSSY_DISABLE) {
 				flag = MM_CARVEOUT;
-			} else { /* p->func == MM_FUNC_LOSSY_ENABLE */
+			} else if (p->func == MM_FUNC_LOSSY_ENABLE) {
 				if ((p->type != MM_FUNC_TYPE_LOSSY_AREA)
 				|| ((p->attr != MM_FUNC_FMT_LOSSY_YUVPLANAR)
 				 && (p->attr != MM_FUNC_FMT_LOSSY_YUV422INTLV)
@@ -239,6 +239,9 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 					ret = R_MM_PARE;
 					goto exit;
 				}
+			} else {
+				ret = R_MM_PARE;
+				goto exit;
 			}
 		}
 	}
