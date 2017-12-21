@@ -17,3 +17,6 @@ MMNGRBUF v0.5
 
 MMNGRBUF v1.0
 	1. Improve coding style, i.e. remove unnecessary spaces in MMNGRBUF TP
+
+MMNGRBUF v1.1
+	1. Fix GCC 7.2 warning
