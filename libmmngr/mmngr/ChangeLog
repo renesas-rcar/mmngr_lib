@@ -32,3 +32,8 @@ MMNGR v0.8
 
 MMNGR v1.0
 	1. Improve coding style, i.e. remove unnecessary spaces
+
+MMNGR v1.1
+	1. Fix GCC 7.2 warning.
+	2. Improve the handling for abnormal case in function
+	mmngr_alloc_in_user_ext().
