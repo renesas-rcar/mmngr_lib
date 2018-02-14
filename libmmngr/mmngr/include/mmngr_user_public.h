@@ -54,6 +54,9 @@ int mmngr_share_in_user(MMNGR_ID *pid,
 			unsigned long *puser_virt_addr);
 int mmngr_release_in_user(MMNGR_ID id);
 
+int mmngr_inval(MMNGR_ID id, size_t offset, size_t len);
+int mmngr_flush(MMNGR_ID id, size_t offset, size_t len);
+
 #define R_MM_OK			0
 #define R_MM_FATAL		-1
 #define R_MM_SEQE		-2
@@ -61,6 +64,7 @@ int mmngr_release_in_user(MMNGR_ID id);
 #define R_MM_NOMEM		-4
 
 #define MMNGR_VA_SUPPORT	MM_KERNELHEAP
+#define MMNGR_VA_SUPPORT_CACHED MM_KERNELHEAP_CACHED
 #define MMNGR_PA_SUPPORT	MM_CARVEOUT
 #define MMNGR_PA_SUPPORT_SSP	MM_CARVEOUT_SSP
 #define MMNGR_PA_SUPPORT_LOSSY	MM_CARVEOUT_LOSSY
