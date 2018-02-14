@@ -216,7 +216,7 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 		goto exit;
 	}
 
-	if ((flag != MM_KERNELHEAP) && (flag != MM_CARVEOUT)
+	if ((flag != MM_KERNELHEAP) && (flag != MM_KERNELHEAP_CACHED) && (flag != MM_CARVEOUT)
 	&& (flag != MM_CARVEOUT_SSP) && (flag != MM_CARVEOUT_LOSSY)) {
 		ret = R_MM_PARE;
 		goto exit;
@@ -246,7 +246,7 @@ int mmngr_alloc_in_user_ext(MMNGR_ID *pid, size_t size,
 		}
 	}
 
-	if (flag == MM_KERNELHEAP) {
+	if (flag == MM_KERNELHEAP || flag == MM_KERNELHEAP_CACHED) {
 		ret = mm_alloc_kh_in_user(pid, size, phard_addr,
 					puser_virt_addr, flag);
 		if (ret)
@@ -299,7 +299,7 @@ int mmngr_free_in_user_ext(MMNGR_ID id)
 		goto exit;
 	}
 
-	if (p.flag == MM_KERNELHEAP) {
+	if (p.flag == MM_KERNELHEAP || p.flag == MM_KERNELHEAP_CACHED) {
 		ret = mm_free_kh_in_user(id);
 		if (ret)
 			goto exit;
@@ -480,5 +480,47 @@ int mmngr_release_in_user(MMNGR_ID id)
 	int		ret;
 
 	ret = mmngr_release_in_user_ext(id);
+	return ret;
+}
+
+int mmngr_inval(MMNGR_ID id, size_t offset, size_t len)
+{
+	int			ret;
+	struct MM_CACHE_PARAM	cachep;
+
+	cachep.offset = offset;
+	cachep.len = len;
+
+	ret = ioctl(id, MM_IOC_INVAL, &cachep);
+	if (ret) {
+		perror("MMI INVAL");
+		ret = R_MM_FATAL;
+		goto exit;
+	}
+
+	return R_MM_OK;
+
+exit:
+	return ret;
+}
+
+int mmngr_flush(MMNGR_ID id, size_t offset, size_t len)
+{
+	int			ret;
+	struct MM_CACHE_PARAM	cachep;
+
+	cachep.offset = offset;
+	cachep.len = len;
+
+	ret = ioctl(id, MM_IOC_FLUSH, &cachep);
+	if (ret) {
+		perror("MMI INVAL");
+		ret = R_MM_FATAL;
+		goto exit;
+	}
+
+	return R_MM_OK;
+
+exit:
 	return ret;
 }
