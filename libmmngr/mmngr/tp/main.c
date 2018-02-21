@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016 Renesas Electronics Corporation
+ * Copyright (c) 2015-2018 Renesas Electronics Corporation
  * Released under the MIT license
  * http://opensource.org/licenses/mit-license.php
  */
@@ -25,7 +25,7 @@ static void one_test_for_gen2(unsigned long flag, unsigned long size)
 	int		ret;
 	MMNGR_ID	id;
 	MMNGR_ID	ids;
-	int		i;
+	unsigned long	i;
 	unsigned char	*p;
 	unsigned long	phy_addr;
 	unsigned long	hard_addr;
@@ -109,7 +109,7 @@ static void one_test_for_gen3(unsigned int flag, size_t size)
 	int		ret;
 	MMNGR_ID	id;
 	MMNGR_ID	ids;
-	int		i;
+	size_t		i;
 	unsigned char	*p;
 	unsigned int	hard_addr;
 	void		*user_virt_addr;
@@ -194,7 +194,7 @@ static void one_test_for_gen3_lossy(unsigned int flag, size_t size,
 	int		ret;
 	MMNGR_ID	id;
 	MMNGR_ID	ids;
-	int		i;
+	size_t		i;
 	unsigned char	*p;
 	unsigned int	hard_addr;
 	unsigned int	conf;
