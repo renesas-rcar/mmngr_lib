@@ -445,7 +445,7 @@ static void test_for_gen3_lossy(unsigned int flag, unsigned long size,
  */
 int main(int argc, char *argv[])
 {
-	char mem_type[1];
+	char mem_type[2];
 	unsigned int length;
 	unsigned long size;
 	char	is_support_ssp;
@@ -461,6 +461,7 @@ int main(int argc, char *argv[])
 		length = strlen(argv[1]);
 		size = strtoul(argv[1], NULL, 0);
 		mem_type[0] = argv[1][length-1];
+		mem_type[1] = '\0';
 
 		if (!strcmp(mem_type, "B")) {        /* Size in Bytes */
 			;
