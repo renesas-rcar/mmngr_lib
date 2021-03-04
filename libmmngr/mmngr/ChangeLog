@@ -42,3 +42,6 @@ MMNGR v1.2
 	1. Use unsigned type for loop index in test program.
 	2. Add missing terminated character when parsing test command
 	   in test program.
+
+MMNGR v1.3
+	1. Add kernelheap cached buffers support.
